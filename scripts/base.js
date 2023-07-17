@@ -268,7 +268,7 @@ function openMail() {
 	$("input[name='getMail']").val("2697243482@qq.com;1359759127@qq.com") //收件人
 	$("input[name='names']").val("2697243482@qq.com;1359759127@qq.com") //抄件人
 	$("input[name='miGet']").val("2697243482@qq.com;1359759127@qq.com") //抄件人
-	$("input[name='subject']").val("D3转k2第1车（夜班）") //主题
+	$("input[name='subject']").val("人才") //主题
 	$("input[name='message']").val("") //内容
 	// window.location.href = "mailto:user@example.com?subject=Subject&body=message%20goes%20here"; 
 	//window.open("mailto:user@example.com?");
