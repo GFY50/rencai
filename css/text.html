@@ -1,0 +1,39 @@
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+		<title>网页Javascript提交OutLook发送邮件</title>
+	</head>
+	<script language="javascript">
+		function toOutLook() {
+			var objFrm = document.frmEmail;
+			var objFrmOutLook = document.frmEmailOutLook;
+			var msg = "";
+			msg += "抄送: " + objFrm.name.value + "  ";
+			//msg += "电话: " + objFrm.phone.value + "  ";
+			//msg += "网址: " + objFrm.website.value + "  ";
+			msg += "主题: " + objFrm.subject.value + "  ";
+			//msg += "内容: " + objFrm.message.value + "  ";
+			objFrmOutLook.message.value = msg;
+			objFrmOutLook.action = "mailto:2697243482@qq.com;1359759127@qq.com?"+
+			"cc=1359759127@qq.com;2697243482@qq.com&bcc=2697243482@qq.com&subject=" + objFrm.subject.value + "&body=" +
+				objFrm.message.value;
+			objFrmOutLook.submit();
+		}
+
+		function dier() {
+			window.open("mailto:sundysea@hotmail.com?subject=" + value1 + "&body=" + value2);
+		}
+	</script>
+	<body>
+		<form name="frmEmailOutLook" action="" method="post" enctype="text/plain"> <input type="hidden" name="message"
+				value=""> </form>
+		<form name="frmEmail" action="" method="post">
+			抄送:<input type="text" name="name" value="a"><BR>
+			<!-- 电话:<input type="text" name="phone" value="b"><BR> -->
+			<!-- 网址:<input type="text" name="website" value="c"><BR> -->
+			主题:<input type="text" name="subject" value="d"><BR>
+			内容:<textarea name="message">ee ddd</textarea><BR>
+			<input type="button" name="send" value="send" onClick="toOutLook()">
+		</form>
+	</body>
+</html>
