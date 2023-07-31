@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <script src="https://cdn.sheetjs.com/xlsx-0.19.1/package/dist/xlsx.full.min.js"></script>
+    <script>
+        // 从文件数据中解析出excel内容
+        function parse(data) {
+            const workbook = XLSX.read(data); // 从原始数据获取工作簿
+                                              // 后端使用可以使用 readFile() 方法直接读取文件
+
+            var first_sheet_name = workbook.SheetNames[0]; // 获得第一个工作表名称
+
+            const worksheet = workbook.Sheets[first_sheet_name]; // 获取工作表
+
+            console.log(worksheet['A1']); // 读取并打印A1端元格数据
+
+            console.log(worksheet['!merges']); // 打印所有合并单元格信息数组
+            
+            console.log(worksheet['!ref']); // 打印输出当前工作表使用的范围
+        }
+
+        // 读取文件数据
+        function read(file) {
+            let reader = new FileReader();
+            reader.onload = function (e) {
+                parse(e.target.result);
+            };
+            reader.readAsArrayBuffer(file);
+        }
+        //写入
+        function xieru(params) {
+            let workbook = XLSX.utils.book_new(); // 新建工作簿
+let workbook = XLSX.utils.table_to_book(table); // 从dom的table元素新建工作簿
+
+// 也可以直接操作现有的工作簿
+
+    let worksheet = XLSX.utils.aoa_to_sheet(data); // 从二维数组新建工作表
+let worksheet = XLSX.utils.json_to_sheet(data); // 从json数据新建工作表
+let worksheet = XLSX.utils.table_to_sheet(table); // 从dom的table元素新建工作表
+
+XLSX.utils.book_append_sheet(workbook, worksheet, "sheet1"); // 将工作表添加到工作簿
+
+XLSX.utils.sheet_add_aoa(worksheet, data, { origin: "A1" }); // 将二维数组添加到工作表
+XLSX.utils.sheet_add_json(worksheet, data, { origin: "A1" }); // 将json数据添加到工作表
+XLSX.utils.sheet_add_dom(worksheet, table, { origin: "A1" }); // 将dom的table元素添加到工作表
+
+// 合并单元格就是设置其合并的信息
+if(!worksheet["!merges"]) worksheet["!merges"] = [];
+worksheet["!merges"].push(XLSX.utils.decode_range("B3:D4"));
+
+let html = XLSX.utils.sheet_to_html(worksheet); // 将工作表内容转成html
+let json= XLSX.utils.sheet_to_json(worksheet); // 将工作表内容转成json
+let csv = XLSX.utils.sheet_to_csv(worksheet); // 将工作表内容转成csv格式文本
+let txt = XLSX.utils.sheet_to_txt(worksheet); // 将工作表内容转成UTF16文本
+
+let data = XLSX.write(workbook, opts); // 生成文档数据
+XLSX.writeFile(workbook, filename, opts); // 生成文档文件，浏览器环境中将直接下载
+XLSX.writeFileAsync(filename, workbook, opts, cb); // 生成文档文件，浏览器环境中将直接下载
+XLSX.writeFileXLSX(workbook, filename, opts); // 生成.xlsx格式文件，浏览器环境中将直接下载
+
+        }
+        function download() {
+            const workbook = XLSX.utils.book_new(); // 新建工作簿
+
+            const worksheet = XLSX.utils.aoa_to_sheet([[22, 333]]); // 从二维数组新建工作表
+
+            XLSX.utils.sheet_add_aoa(worksheet, [["Naisu"]], { origin: 'C2' }); // 向单元格写数据
+            XLSX.utils.sheet_add_aoa(worksheet, [[233]], { origin: 'A3' }); // 向单元格写数据
+            
+            worksheet["!merges"] = [XLSX.utils.decode_range("B3:D4")]; // 合并单元格
+
+            XLSX.utils.book_append_sheet(workbook, worksheet, "sheet1"); // 将工作表添加到工作簿
+
+            XLSX.writeFileXLSX(workbook, 'myfile.xlsx'); // 将工作簿数据建立为./xlsx文件（浏览器环境下会直接下载）
+        }
+
+        function duqujson(){
+            $.getJSON("json/test.json", function(data)  {
+     console.log(data.total);
+})
+        }
+ function duexcel(params) {
+    let jsaddr = XLSX.utils.decode_cell("A2"); // 得到{r:1, c:0}
+let rawaddr = XLSX.utils.encode_cell({r:1, c:0}); // 得到A2
+
+let jsaddrr = XLSX.utils.decode_range("A1:D3"); // 得到{ s: { c: 0, r: 0 }, e: { c: 3, r: 2 } }
+let rawaddrr = XLSX.utils.encode_range({ s: { c: 0, r: 0 }, e: { c: 3, r: 2 } }); // 得到A1:D3
+
+ }
+/* https://github.com/rockboom/SheetJS-docs-zh-CN */
+    </script>
+</head>
+
+<body>
+    <input type="file" onchange="read(this.files[0])" /><br>
+</body>
+
+</html>
