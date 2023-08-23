@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>数据自动校验</title>
+		<script src="js/jquery.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/verification.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/xlsx.full.min.js" type="text/javascript" charset="utf-8"></script>
+		<link rel="stylesheet" href="css/index.css" />
+	</head>
+	<body>
+		<div class="cneter">
+			<input type="file" name="getExcel" id="excel-file">
+			<button type="button" onclick="getJson()">测试</button>
+		</div>
+		<table border="" cellspacing="" cellpadding="" class="cneter">
+			<tr>
+				<th>错误数据</th>
+				<th>错误类型</th>
+				<th>数据位置</th>
+			</tr>
+			<tbody id="error"></tbody>
+		</table>
+	</body>
+</html>
